@@ -29,7 +29,7 @@ The error message can be changed from the plugin admin.
 * Option to bypass certain customer’s from this restriction
 * Makes your product secure by restricting unauthorised downloads
 
-
+Check the <a href="http://amansaini.me/woocommerce-lock-downloads-ip/">documentation</a> for more info
 
 == Installation ==
 
