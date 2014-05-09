@@ -3,7 +3,7 @@ Contributors: aman086
 Donate link: http://amansaini.me/
 Requires at least: 3.5.1
 Tags:woocommerce,ecommerce,lock,ip,woo lock, woo iplock
-Tested up to: 3.8.1
+Tested up to: 3.9.1
 Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
