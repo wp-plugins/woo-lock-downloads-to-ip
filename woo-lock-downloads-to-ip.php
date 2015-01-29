@@ -4,7 +4,7 @@ Plugin Name: Woocommerce - Lock Downloads to IP
 Plugin URI: http://amansaini.me
 Description: An extension for Woocommerce to lock file downloads to the IP address used to purchase the file
 Author: Aman Saini
-Version: 1.0
+Version: 1.1
 Author URI: http://amansaini.me
 Text Domain: wooiplock
 Domain Path: languages
@@ -16,7 +16,7 @@ class Woo_Lock_Downloads_To_IP {
 	function __construct() {
 
 		// internationalization
-		//add_action( 'init', array( $this, 'textdomain' ) );
+		add_action( 'init', array( $this, 'textdomain' ) );
 
 		//Add admin js
 		add_action( 'admin_enqueue_scripts',  array( $this,'add_wooiplock_js'));
@@ -46,7 +46,7 @@ class Woo_Lock_Downloads_To_IP {
 	 * Load the plugin text domain for internationalization
 	 *
 	 * @access      public
-	 * @since       Planned
+	 * @since       1.0
 	 * @return      void
 	 */
 
@@ -82,7 +82,7 @@ class Woo_Lock_Downloads_To_IP {
 	 */
 	public function add_lock_download_options(  $fields ){
 
-		$fields[] = array(  'name' => __( 'Lock Downloads'), 'type' => 'title', '', 'id' => 'woo_lock_downloads_by_ip' );
+		$fields[] = array(  'name' => __( 'Download lock'), 'type' => 'title', '', 'id' => 'woo_lock_downloads_by_ip' );
 
 		$fields[] = array(
 		                  'name' => __( 'Lock downloads by IP ', 'wooiplock' ),
@@ -97,7 +97,7 @@ class Woo_Lock_Downloads_To_IP {
 		                  'id'        => 'wooiplock_lock_type',
 		                  'css'       => 'min-width:300px;',
 		                  'type'      => 'select',
-		                  'desc_tip' => true,
+		                  'desc_tip'  => true,
 		                  'options'   =>  array(
 		                                        'user_ip'  => __( 'User IP Only', 'wooiplock' ),
 		                                        'ip_range' => __( 'IP Range', 'wooiplock' ),
@@ -187,6 +187,7 @@ return $fields;
 				value="<?php echo esc_attr( $option_value_end ); ?>"
 				class="<?php echo esc_attr( $value['class'] ); ?>"
 				/>
+				<?php echo $description; ?>
 			</td>
 		</tr>
 
@@ -261,8 +262,9 @@ public function save_user_bypass_setting( $user_id ) {
 
 			$order = new WC_Order( $order_id );
 
-			$order_ip = $order->order_custom_fields["_customer_ip_address"][0];
+			$order_ip_arr =get_post_meta($order_id,'_customer_ip_address',false);
 
+			$order_ip= $order_ip_arr[0];
 
 			$lock_type = get_option( 'wooiplock_lock_type' );
 
